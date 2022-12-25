@@ -1,0 +1,6 @@
+﻿  OGL.cpp
+C:\MyProject\RTR\01-OpenGL\02-PP\01-Windows\01-OpenGlExtention\OGL\OGL.cpp(149,13): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+C:\MyProject\RTR\01-OpenGL\02-PP\01-Windows\01-OpenGlExtention\OGL\OGL.cpp(233,8): warning C4101: 'status': unreferenced local variable
+C:\MyProject\RTR\01-OpenGL\02-PP\01-Windows\01-OpenGlExtention\OGL\OGL.cpp(234,8): warning C4101: 'infoLogLength': unreferenced local variable
+C:\MyProject\RTR\01-OpenGL\02-PP\01-Windows\01-OpenGlExtention\OGL\OGL.cpp(354,10): warning C4101: 'numAttachShader': unreferenced local variable
+  OGL.vcxproj -> C:\MyProject\RTR\01-OpenGL\02-PP\01-Windows\01-OpenGlExtention\OGL\x64\Debug\OGL.exe

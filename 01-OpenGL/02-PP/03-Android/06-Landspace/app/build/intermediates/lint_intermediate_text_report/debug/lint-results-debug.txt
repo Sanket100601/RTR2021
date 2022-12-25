@@ -1,0 +1,90 @@
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\build.gradle:30: Warning: A newer version of androidx.appcompat:appcompat than 1.5.0 is available: 1.5.1 [GradleDependency]
+    implementation 'androidx.appcompat:appcompat:1.5.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\build.gradle:32: Warning: A newer version of androidx.constraintlayout:constraintlayout than 2.0.4 is available: 2.1.4 [GradleDependency]
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "GradleDependency":
+   This detector looks for usages of libraries where the version you are using
+   is not the current stable release. Using older versions is fine, and there
+   are cases where you deliberately want to stick with an older version.
+   However, you may simply not be aware that a more recent version is
+   available, and that is what this lint check helps find.
+
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-anydpi-v26\ic_launcher.xml:2: Warning: The resource R.mipmap.ic_launcher appears to be unused [UnusedResources]
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+^
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\drawable\ic_launcher_background.xml:2: Warning: The resource R.drawable.ic_launcher_background appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\drawable-v24\ic_launcher_foreground.xml:1: Warning: The resource R.drawable.ic_launcher_foreground appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-anydpi-v26\ic_launcher_round.xml:2: Warning: The resource R.mipmap.ic_launcher_round appears to be unused [UnusedResources]
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+^
+
+   Explanation for issues of type "UnusedResources":
+   Unused resources make applications larger and slow down builds.
+
+   The unused resource check can ignore tests. If you want to include
+   resources that are only referenced from tests, consider packaging them in a
+   test source set instead.
+
+   You can include test sources in the unused resource check by setting the
+   system property lint.unused-resources.include-tests=true, and to exclude
+   them (usually for performance reasons), use
+   lint.unused-resources.exclude-tests=true.
+
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-hdpi\myicon_round.png: Warning: Launcher icons should not fill every pixel of their square region; see the design guide for details [IconLauncherShape]
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-mdpi\myicon_round.png: Warning: Launcher icons should not fill every pixel of their square region; see the design guide for details [IconLauncherShape]
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-xhdpi\myicon_round.png: Warning: Launcher icons should not fill every pixel of their square region; see the design guide for details [IconLauncherShape]
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-xxhdpi\myicon_round.png: Warning: Launcher icons should not fill every pixel of their square region; see the design guide for details [IconLauncherShape]
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-xxxhdpi\myicon_round.png: Warning: Launcher icons should not fill every pixel of their square region; see the design guide for details [IconLauncherShape]
+
+   Explanation for issues of type "IconLauncherShape":
+   According to the Android Design Guide
+   (https://material.io/design/iconography/) your launcher icons should "use a
+   distinct silhouette", a "three-dimensional, front view, with a slight
+   perspective as if viewed from above, so that users perceive some depth."
+
+   The unique silhouette implies that your launcher icon should not be a
+   filled square.
+
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-xxxhdpi\my_icon.png: Warning: The image my_icon.png varies significantly in its density-independent (dip) size across the various density versions: mipmap-hdpimy_icon.png: 48x48 dp (72x72 px), mipmap-mdpimy_icon.png: 72x72 dp (72x72 px), mipmap-xhdpimy_icon.png: 36x36 dp (72x72 px), mipmap-xxhdpimy_icon.png: 24x24 dp (72x72 px), mipmap-xxxhdpimy_icon.png: 18x18 dp (72x72 px) [IconDipSize]
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-xxxhdpi\myicon_round.png: Warning: The image myicon_round.png varies significantly in its density-independent (dip) size across the various density versions: mipmap-hdpimyicon_round.png: 48x48 dp (72x72 px), mipmap-mdpimyicon_round.png: 72x72 dp (72x72 px), mipmap-xhdpimyicon_round.png: 36x36 dp (72x72 px), mipmap-xxhdpimyicon_round.png: 24x24 dp (72x72 px), mipmap-xxxhdpimyicon_round.png: 18x18 dp (72x72 px) [IconDipSize]
+
+   Explanation for issues of type "IconDipSize":
+   Checks the all icons which are provided in multiple densities, all compute
+   to roughly the same density-independent pixel (dip) size. This catches
+   errors where images are either placed in the wrong folder, or icons are
+   changed to new sizes but some folders are forgotten.
+
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-xxxhdpi\my_icon.png: Warning: The my_icon.png icon has identical contents in the following configuration folders: mipmap-hdpi, mipmap-mdpi, mipmap-xhdpi, mipmap-xxhdpi, mipmap-xxxhdpi [IconDuplicatesConfig]
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\res\mipmap-xxxhdpi\myicon_round.png: Warning: The myicon_round.png icon has identical contents in the following configuration folders: mipmap-hdpi, mipmap-mdpi, mipmap-xhdpi, mipmap-xxhdpi, mipmap-xxxhdpi [IconDuplicatesConfig]
+
+   Explanation for issues of type "IconDuplicatesConfig":
+   If an icon is provided under different configuration parameters such as
+   drawable-hdpi or -v11, they should typically be different. This detector
+   catches cases where the same icon is provided in different configuration
+   folder which is usually not intentional.
+
+C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\06-Landspace\app\src\main\java\com\tejas\window\MyView.java:16: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+ setText("Hello world!!!");
+         ~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "SetTextI18n":
+   When calling TextView#setText
+   * Never call Number#toString() to format numbers; it will not handle
+   fraction separators and locale-specific digits properly. Consider using
+   String#format with proper format specifications (%d or %f) instead.
+   * Do not pass a string literal (e.g. "Hello") to display text. Hardcoded
+   text can not be properly translated to other languages. Consider using
+   Android resource strings instead.
+   * Do not build messages by concatenating text chunks. Such messages can not
+   be properly translated.
+
+   https://developer.android.com/guide/topics/resources/localization.html
+
+0 errors, 16 warnings

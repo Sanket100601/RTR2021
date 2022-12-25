@@ -1,0 +1,4 @@
+#Tue Sep 13 00:30:43 IST 2022
+base.0=C\:\\MyProjects\\RTR4.0\\01-OpenGL\\02-PP\\03-Android\\04-Seperate-TextView\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

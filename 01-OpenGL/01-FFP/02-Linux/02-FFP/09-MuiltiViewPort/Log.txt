@@ -1,0 +1,4 @@
+						 !!! SHREE GAJANAN PRASANNA !!! 
+
+Log file sucessfully open.
+Log file sucessfully close

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f3e19ba4-3f50-49d4-b200-4406e9f5e912" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../../../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/11-FileIO/window.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/11-FileIO/window.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/22-2DRotation/01-White/01-One2DShapes/02-Rectangle/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/22-2DRotation/01-White/01-One2DShapes/02-Rectangle/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/23-3DRotation/01-White/01-One3DShape/01-Pyramid/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/23-3DRotation/01-White/01-One3DShape/01-Pyramid/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/27-CameraXZRotation/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/27-CameraXZRotation/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/28-PointAtCenter/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/28-PointAtCenter/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/29-RedHorizonatlLine/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/29-RedHorizonatlLine/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/30-GreenVerticalLine/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/30-GreenVerticalLine/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/31-1Red40BlueVerticlesLines/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/31-1Red40BlueVerticlesLines/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/32-1Green40BlueVerticlesLines/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/32-1Green40BlueVerticlesLines/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/33-GraphPaperWithShapes/05-AllShapes/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/33-GraphPaperWithShapes/05-AllShapes/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/35-TenConcentricTriangles/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/35-TenConcentricTriangles/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/37-TenConcentricCircle/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/37-TenConcentricCircle/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/39-DynamicDealthyHollow/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/40-PushPopMatrix/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/40-PushPopMatrix/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/40-PushPopMatrix/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/40-PushPopMatrix/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/40-PushPopMatrix/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/40-PushPopMatrix/capture.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/40-PushPopMatrix/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/41-RoboticArm/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/41-RoboticArm/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/41-RoboticArm/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/41-RoboticArm/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/41-RoboticArm/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/41-RoboticArm/capture.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/41-RoboticArm/capture2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/41-RoboticArm/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/43-Procedural Tesxture/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/43-Procedural Tesxture/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/43-Procedural Tesxture/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/43-Procedural Tesxture/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/43-Procedural Tesxture/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/43-Procedural Tesxture/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/43-Procedural Tesxture/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/43-Texture/02-Two3DShapes/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/43-Texture/02-Two3DShapes/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/01-DefuseLight/Capture.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/01-DefuseLight/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/01-DefuseLight/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/01-DefuseLight/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/01-DefuseLight/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/01-DefuseLight/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/01-DefuseLight/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/02-GouraudShading/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/02-GouraudShading/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/02-GouraudShading/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/02-GouraudShading/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/02-GouraudShading/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/02-GouraudShading/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/03-TwoLightsOnSpinningPyramid/Capture.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/03-TwoLightsOnSpinningPyramid/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/03-TwoLightsOnSpinningPyramid/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/03-TwoLightsOnSpinningPyramid/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/03-TwoLightsOnSpinningPyramid/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/03-TwoLightsOnSpinningPyramid/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/03-TwoLightsOnSpinningPyramid/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/04-ThreeLightsOnSteadySphere/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/04-ThreeLightsOnSteadySphere/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/04-ThreeLightsOnSteadySphere/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/04-ThreeLightsOnSteadySphere/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/04-ThreeLightsOnSteadySphere/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/04-ThreeLightsOnSteadySphere/capture.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/04-ThreeLightsOnSteadySphere/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/05-TweentyFourSphere/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/05-TweentyFourSphere/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/05-TweentyFourSphere/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/05-TweentyFourSphere/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/05-TweentyFourSphere/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/44-Light/05-TweentyFourSphere/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/45-Light/03-TwoLightsOnSpinningPyramid/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/45-Light/03-TwoLightsOnSpinningPyramid/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/45-Light/04-ThreeLightsOnSteadySphere/OGL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/45-Light/04-ThreeLightsOnSteadySphere/OGL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/45-Light/05-TweentyFourSphere/Log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../../../../../01-FFP/01-Windows/02-Native/45-Light/05-TweentyFourSphere/Log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/01-Bluescreen/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/01-Bluescreen/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/01-Bluescreen/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/01-Bluescreen/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/01-Bluescreen/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/01-Bluescreen/output.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/01-Bluescreen/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/01-Bluescreen/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/02-Ortho/Blue_and_White with Ortho.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/02-Ortho/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/02-Ortho/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/02-Ortho/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/02-Ortho/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/02-Ortho/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/02-Ortho/output.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/02-Ortho/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/02-Ortho/vmath.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/Log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/OGL.APS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/OGL.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/OGL.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/OGL.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/Stone.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/Vijay_Kundali.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/output.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/ringtones.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../01-Windws/12-Texture/3dTexture/vmath.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/02-WallClock/Sudeshana_Waykar-RTR2021-068.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/02-WallClock/watch.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379617833.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379619184.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379620182.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379621996.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379623135.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379624075.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379922461.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379922611.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379923334.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379924480.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/All Emoji Screen shot/1643379925006.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/Emoji_By_SudeshanaWaykarRTR2-2021-068.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/03-Emoji/Emoji_Video_SudeshanaWaykar-RTR2021-068.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/04-OnePointPrespective/01-Box/OnePointPrespective_Sudeshana_WaykarRTR-2021-068_Capture1.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/04-OnePointPrespective/01-Box/OnePointPrespective_Sudeshana_WaykarRTR-2021-068_Capture2.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/04-OnePointPrespective/02-Swastik/OnePrespective_SudeshanaWaykar-RTR2021-068_Capture1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/04-OnePointPrespective/02-Swastik/OnePrespective_SudeshanaWaykar-RTR2021-068_Capture2_3DEffrect.jpeg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/04-OnePointPrespective/02-Swastik/OnePrespectve_SudeshanaWaykarRTR2021-068_Video.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/04-OnePointPrespective/03-Group Name/SudeshanaWaykar-RTR2021068_GroupName-EyeViewJPEG.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/04-OnePointPrespective/03-Group Name/SudeshanaWaykar-RTR2021068_GroupName-FrontView.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/05-TwoPointPrespective/01-Box/2PointPrespectiveBYSudeshanaRTR2021-068Video.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../04-Drawing/05-TwoPointPrespective/01-Box/2PointPrespectiveBy_SudeshanaWaykarRTR2021-068.JPEG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../../../../../../Stack/stack.cpp" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../../../../../../../.." />
+  </component>
+  <component name="ProjectId" id="2Eu26Z2YcdQhd9BQV3OaaQ7B44Q" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../.." />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f3e19ba4-3f50-49d4-b200-4406e9f5e912" name="Changes" comment="" />
+      <created>1663430973657</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663430973657</updated>
+    </task>
+    <servers />
+  </component>
+</project>

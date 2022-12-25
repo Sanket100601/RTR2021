@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 7.2.2" type="incidents">
+
+    <incident
+        id="ClickableViewAccessibility"
+        severity="warning"
+        message="Custom view `MyView` overrides `onTouchEvent` but not `performClick`">
+        <location
+            file="${:app*debug*sourceProvider*0*javaDir*0}/com/tejas/window/MyView.java"
+            line="32"
+            column="17"
+            startOffset="899"
+            endLine="32"
+            endColumn="29"
+            endOffset="911"/>
+    </incident>
+
+    <incident
+        id="SetTextI18n"
+        severity="warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead.">
+        <location
+            file="${:app*debug*sourceProvider*0*javaDir*0}/com/tejas/window/MyView.java"
+            line="24"
+            column="10"
+            startOffset="713"
+            endLine="24"
+            endColumn="26"
+            endOffset="729"/>
+    </incident>
+
+    <incident
+        id="SetTextI18n"
+        severity="warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead.">
+        <location
+            file="${:app*debug*sourceProvider*0*javaDir*0}/com/tejas/window/MyView.java"
+            line="44"
+            column="11"
+            startOffset="1143"
+            endLine="44"
+            endColumn="29"
+            endOffset="1161"/>
+    </incident>
+
+    <incident
+        id="SetTextI18n"
+        severity="warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead.">
+        <location
+            file="${:app*debug*sourceProvider*0*javaDir*0}/com/tejas/window/MyView.java"
+            line="57"
+            column="11"
+            startOffset="1340"
+            endLine="57"
+            endColumn="29"
+            endOffset="1358"/>
+    </incident>
+
+    <incident
+        id="SetTextI18n"
+        severity="warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead.">
+        <location
+            file="${:app*debug*sourceProvider*0*javaDir*0}/com/tejas/window/MyView.java"
+            line="77"
+            column="11"
+            startOffset="1673"
+            endLine="77"
+            endColumn="28"
+            endOffset="1690"/>
+    </incident>
+
+    <incident
+        id="SetTextI18n"
+        severity="warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead.">
+        <location
+            file="${:app*debug*sourceProvider*0*javaDir*0}/com/tejas/window/MyView.java"
+            line="84"
+            column="11"
+            startOffset="1810"
+            endLine="84"
+            endColumn="34"
+            endOffset="1833"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.appcompat:appcompat than 1.5.0 is available: 1.5.1">
+        <fix-replace
+            description="Change to 1.5.1"
+            family="Update versions"
+            oldString="1.5.0"
+            replacement="1.5.1"/>
+        <location
+            file="${:app*projectDir}/build.gradle"
+            line="30"
+            column="20"
+            startOffset="586"
+            endLine="30"
+            endColumn="56"
+            endOffset="622"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.constraintlayout:constraintlayout than 2.0.4 is available: 2.1.4">
+        <fix-replace
+            description="Change to 2.1.4"
+            family="Update versions"
+            oldString="2.0.4"
+            replacement="2.1.4"/>
+        <location
+            file="${:app*projectDir}/build.gradle"
+            line="32"
+            column="20"
+            startOffset="706"
+            endLine="32"
+            endColumn="70"
+            endOffset="756"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-hdpi/myicon_round.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-mdpi/myicon_round.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xhdpi/myicon_round.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxhdpi/myicon_round.png"/>
+    </incident>
+
+    <incident
+        id="IconLauncherShape"
+        severity="warning"
+        message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxxhdpi/myicon_round.png"/>
+    </incident>
+
+    <incident
+        id="IconDipSize"
+        severity="warning"
+        message="The image `my_icon.png` varies significantly in its density-independent (dip) size across the various density versions: mipmap-hdpi\my_icon.png: 48x48 dp (72x72 px), mipmap-mdpi\my_icon.png: 72x72 dp (72x72 px), mipmap-xhdpi\my_icon.png: 36x36 dp (72x72 px), mipmap-xxhdpi\my_icon.png: 24x24 dp (72x72 px), mipmap-xxxhdpi\my_icon.png: 18x18 dp (72x72 px)">
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxxhdpi/my_icon.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxhdpi/my_icon.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xhdpi/my_icon.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-hdpi/my_icon.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-mdpi/my_icon.png"/>
+    </incident>
+
+    <incident
+        id="IconDipSize"
+        severity="warning"
+        message="The image `myicon_round.png` varies significantly in its density-independent (dip) size across the various density versions: mipmap-hdpi\myicon_round.png: 48x48 dp (72x72 px), mipmap-mdpi\myicon_round.png: 72x72 dp (72x72 px), mipmap-xhdpi\myicon_round.png: 36x36 dp (72x72 px), mipmap-xxhdpi\myicon_round.png: 24x24 dp (72x72 px), mipmap-xxxhdpi\myicon_round.png: 18x18 dp (72x72 px)">
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxxhdpi/myicon_round.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxhdpi/myicon_round.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xhdpi/myicon_round.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-hdpi/myicon_round.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-mdpi/myicon_round.png"/>
+    </incident>
+
+    <incident
+        id="IconDuplicatesConfig"
+        severity="warning"
+        message="The `myicon_round.png` icon has identical contents in the following configuration folders: mipmap-hdpi, mipmap-mdpi, mipmap-xhdpi, mipmap-xxhdpi, mipmap-xxxhdpi">
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxxhdpi/myicon_round.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxhdpi/myicon_round.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xhdpi/myicon_round.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-mdpi/myicon_round.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-hdpi/myicon_round.png"/>
+    </incident>
+
+    <incident
+        id="IconDuplicatesConfig"
+        severity="warning"
+        message="The `my_icon.png` icon has identical contents in the following configuration folders: mipmap-hdpi, mipmap-mdpi, mipmap-xhdpi, mipmap-xxhdpi, mipmap-xxxhdpi">
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxxhdpi/my_icon.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xxhdpi/my_icon.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-xhdpi/my_icon.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-mdpi/my_icon.png"/>
+        <location
+            file="${:app*debug*sourceProvider*0*resDir*0}/mipmap-hdpi/my_icon.png"/>
+    </incident>
+
+</incidents>

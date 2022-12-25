@@ -1,0 +1,67 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.tejas.window"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="32" />
+9-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml
+10
+11    <application
+11-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:5:5-19:19
+12        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+12-->[androidx.core:core:1.8.0] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\0638d9dacb5fd10604e28ec2b4d3c80b\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
+13        android:debuggable="true"
+14        android:icon="@mipmap/my_icon"
+14-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:6:9-39
+15        android:label="@string/app_name"
+15-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:7:9-41
+16        android:roundIcon="@mipmap/myicon_round"
+16-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:8:9-49
+17        android:theme="@style/Theme.AppCompat" >
+17-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:9:9-47
+18        <activity
+18-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:10:9-18:20
+19            android:name="com.tejas.window.MainActivity"
+19-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:11:13-41
+20            android:exported="true" >
+20-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:12:13-36
+21            <intent-filter>
+21-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:13:13-17:29
+22                <action android:name="android.intent.action.MAIN" />
+22-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:14:17-69
+22-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:14:25-66
+23
+24                <category android:name="android.intent.category.LAUNCHER" />
+24-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:16:17-77
+24-->C:\MyProjects\RTR4.0\01-OpenGL\02-PP\03-Android\05-FullScreen\app\src\main\AndroidManifest.xml:16:27-74
+25            </intent-filter>
+26        </activity>
+27
+28        <provider
+28-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\9f99c19470d8bf18ee15270d078c3173\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+29            android:name="androidx.startup.InitializationProvider"
+29-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\9f99c19470d8bf18ee15270d078c3173\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+30            android:authorities="com.tejas.window.androidx-startup"
+30-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\9f99c19470d8bf18ee15270d078c3173\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+31            android:exported="false" >
+31-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\9f99c19470d8bf18ee15270d078c3173\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+32            <meta-data
+32-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\9f99c19470d8bf18ee15270d078c3173\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+33                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+33-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\9f99c19470d8bf18ee15270d078c3173\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+34                android:value="androidx.startup" />
+34-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\9f99c19470d8bf18ee15270d078c3173\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+35            <meta-data
+35-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\a68586d9ac6fc4872d4884a947d1c1d5\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+36                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+36-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\a68586d9ac6fc4872d4884a947d1c1d5\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+37                android:value="androidx.startup" />
+37-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Sudeshana Waykar\.gradle\caches\transforms-3\a68586d9ac6fc4872d4884a947d1c1d5\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+38        </provider>
+39    </application>
+40
+41</manifest>

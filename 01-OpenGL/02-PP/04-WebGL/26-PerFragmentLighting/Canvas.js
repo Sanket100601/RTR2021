@@ -10,19 +10,38 @@ const WebGLMacros =
     AMC_ATTRIBUTE_VERTEX: 0,
     AMC_ATTRIBUTE_COLOR: 1,
     AMC_ATTRIBUTE_NORMAL: 2,
-    AMC_ATTRIBUTE_TEXTURE: 3,
+    AMC_ATTRIBUTE_TEXCOORD: 3,
 };
 
 var vertexShaderObject;
 var fragmentShaderObject;
 var shaderProgramObject;
 
-var vao_pyramid;
-var vbo_pyramid_position;
-var vbo_pyramid_color;
+var modelMatrixUniform;
+var viewMatrixUniform;
+var perspectiveProjectionMatrixUniform;
+var LaUniform;
+var LdUniform;
+var LsUniform;
+var lightPositionUniform;
+var KaUniform;
+var KdUniform;
+var KsUniform;
+var materialShininessUniform;
+var LKeyPressedUniform;
 
-var mvpUniform;
 var perspectiveProjectionMatrix;
+var lightAmbient = [];
+var lightDiffuse = [];
+var lightSpecular = [];
+var lightPosition = [];
+var materialAmbient = [];
+var materialDiffuse = [];
+var materialSpecular = [];
+var materialShininess;
+var LKeyPressed;
+
+var sphere = null;
 
 var requestAnimationFrame =
     window.requestAnimationFrame ||
@@ -37,8 +56,6 @@ var cancelAnimationFrame =
     window.mozCancelRequestAnimationFrame || window.mozCancelAnimationFrame ||
     window.oCancelRequestAnimationFrame || window.oCancelAnimationFrame ||
     window.msCancelRequestAnimationFrame || window.msCancelAnimationFrame;
-
-var pyramid_rotation_angle = 0.0;
 
 //onload function
 function main() {
@@ -118,14 +135,36 @@ function initialize() {
     var vertexShaderSourceCode =
         "#version 300 es" +
         "\n" +
-        "in vec4 vPosition;" +
-        "in vec4 vColor;" +
-        "uniform mat4 u_mvp_matrix;" +
-        "out vec4 out_color;" +
+
+        "precision mediump float;" +
+
+        "in vec3 vPosition;" +
+        "in vec3 vNormal;" +
+
+        "uniform mat4 u_modelMatrix;" +
+        "uniform mat4 u_viewMatrix;" +
+        "uniform mat4 u_projectionMatrix;" +
+        "uniform vec4 u_lightPosition;" +
+        "uniform mediump int u_LKeyPressed;" +
+
+        "out vec3 transformed_normal;" +
+        "out vec3 light_direction;" +
+        "out vec3 view_vector;" +
+
         "void main(void)" +
         "{" +
-        "   gl_Position = u_mvp_matrix * vPosition;" +
-        "   out_color = vColor;" +
+        "   if(u_LKeyPressed == 1)" +
+        "   {" +
+
+        "       vec4 eye_coords = u_viewMatrix * u_modelMatrix * vec4(vPosition, 1.0f);" +
+        "       mat3 normal_matrix = mat3(transpose(inverse(u_viewMatrix * u_modelMatrix)));" +
+        "       transformed_normal = normal_matrix * vNormal;" +
+        "       light_direction = vec3(u_lightPosition - eye_coords);" +
+        "       view_vector = -eye_coords.xyz;" +
+
+        "   }" +
+
+        "   gl_Position = u_projectionMatrix * u_viewMatrix * u_modelMatrix * vec4(vPosition, 1.0f);" +
         "}";
 
     vertexShaderObject = gl.createShader(gl.VERTEX_SHADER);
@@ -144,11 +183,47 @@ function initialize() {
         "#version 300 es" +
         "\n" +
         "precision highp float;" +
-        "in vec4 out_color;" +
+
+        "in vec3 transformed_normal;" +
+        "in vec3 light_direction;" +
+        "in vec3 view_vector;" +
+
+        "uniform vec3 u_lightAmbient;" +
+        "uniform vec3 u_lightDiffuse;" +
+        "uniform vec3 u_lightSpecular;" +
+        "uniform vec3 u_materialAmbient;" +
+        "uniform vec3 u_materialDiffuse;" +
+        "uniform vec3 u_materialSpecular;" +
+        "uniform float u_materialShininess;" +
+        "uniform mediump int u_LKeyPressed;" +
+
         "out vec4 FragColor;" +
+
         "void main(void)" +
         "{" +
-        "   FragColor = out_color;" +
+        "   vec3 phong_ads_light;" +
+        "   if(u_LKeyPressed == 1)" +
+        "   {" +
+
+        "       vec3 normalized_transformed_normal = normalize(transformed_normal);" +
+        "       vec3 normalized_light_direction = normalize(light_direction);" +
+        "       vec3 normalized_view_vector = normalize(view_vector);" +
+        "       vec3 reflection_vector = reflect(-normalized_light_direction, normalized_transformed_normal);" +
+
+        "       vec3 ambient = u_lightAmbient * u_materialAmbient;" +
+        "       vec3 diffuse = u_lightDiffuse * u_materialDiffuse * max(dot(normalized_light_direction, normalized_transformed_normal), 0.0f);" +
+        "       vec3 specular = u_lightSpecular * u_materialSpecular * pow(max(dot(reflection_vector, normalized_view_vector), 0.0f), u_materialShininess);" +
+        "       phong_ads_light = ambient + diffuse + specular;" +
+
+        "   }" +
+        "   else" +
+        "   {" +
+
+        "       phong_ads_light = vec3(1.0f, 1.0f, 1.0f);" +
+
+        "   }" +
+
+        "   FragColor = vec4(phong_ads_light, 1.0f);" +
         "}";
 
     fragmentShaderObject = gl.createShader(gl.FRAGMENT_SHADER);
@@ -169,7 +244,7 @@ function initialize() {
 
     //pre-linking binding of shader program object with vertex shader attributes
     gl.bindAttribLocation(shaderProgramObject, WebGLMacros.AMC_ATTRIBUTE_VERTEX, "vPosition");
-    gl.bindAttribLocation(shaderProgramObject, WebGLMacros.AMC_ATTRIBUTE_COLOR, "vColor");
+    gl.bindAttribLocation(shaderProgramObject, WebGLMacros.AMC_ATTRIBUTE_NORMAL, "vNormal");
 
     //linking 
     gl.linkProgram(shaderProgramObject);
@@ -182,80 +257,43 @@ function initialize() {
     }
 
     //get MVP uniform location
-    mvpUniform = gl.getUniformLocation(shaderProgramObject, "u_mvp_matrix");
+    modelMatrixUniform = gl.getUniformLocation(shaderProgramObject, "u_modelMatrix");
+    viewMatrixUniform = gl.getUniformLocation(shaderProgramObject, "u_viewMatrix");
+    perspectiveProjectionMatrixUniform = gl.getUniformLocation(shaderProgramObject, "u_projectionMatrix");
 
-    //setup vao and vbo
-    var pyramidVertices = new Float32Array([
-        //near
-        0.0, 1.0, 0.0,
-        -1.0, -1.0, 1.0,
-        1.0, -1.0, 1.0,
+    LaUniform = gl.getUniformLocation(shaderProgramObject, "u_lightAmbient");
+    LdUniform = gl.getUniformLocation(shaderProgramObject, "u_lightDiffuse");
+    LsUniform = gl.getUniformLocation(shaderProgramObject, "u_lightSpecular");
+    lightPositionUniform = gl.getUniformLocation(shaderProgramObject, "u_lightPosition");
 
-        //right
-        0.0, 1.0, 0.0,
-        1.0, -1.0, 1.0,
-        1.0, -1.0, -1.0,
+    KaUniform = gl.getUniformLocation(shaderProgramObject, "u_materialAmbient");
+    KdUniform = gl.getUniformLocation(shaderProgramObject, "u_materialDiffuse");
+    KsUniform = gl.getUniformLocation(shaderProgramObject, "u_materialSpecular");
+    materialShininessUniform = gl.getUniformLocation(shaderProgramObject, "u_materialShininess");
 
-        //far
-        0.0, 1.0, 0.0,
-        1.0, -1.0, -1.0,
-        -1.0, -1.0, -1.0,
+    LKeyPressedUniform = gl.getUniformLocation(shaderProgramObject, "u_LKeyPressed");
 
-        //left
-        0.0, 1.0, 0.0,
-        -1.0, -1.0, -1.0,
-        -1.0, -1.0, 1.0
-    ]);
-
-    var pyramidColors = new Float32Array([
-        //near 
-        1.0, 0.0, 0.0,
-        0.0, 1.0, 0.0,
-        0.0, 0.0, 1.0,
-
-        //right
-        1.0, 0.0, 0.0,
-        0.0, 0.0, 1.0,
-        0.0, 1.0, 0.0,
-
-        //far
-        1.0, 0.0, 0.0,
-        0.0, 1.0, 0.0,
-        0.0, 0.0, 1.0,
-
-        //left
-        1.0, 0.0, 0.0,
-        0.0, 0.0, 1.0,
-        0.0, 1.0, 0.0
-    ]);
-
-    vao_pyramid = gl.createVertexArray();
-    gl.bindVertexArray(vao_pyramid);
-
-    vbo_pyramid_position = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, vbo_pyramid_position);
-    gl.bufferData(gl.ARRAY_BUFFER, pyramidVertices, gl.STATIC_DRAW);
-    gl.vertexAttribPointer(WebGLMacros.AMC_ATTRIBUTE_VERTEX, 3, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(WebGLMacros.AMC_ATTRIBUTE_VERTEX);
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-
-    vbo_pyramid_color = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, vbo_pyramid_color);
-    gl.bufferData(gl.ARRAY_BUFFER, pyramidColors, gl.STATIC_DRAW);
-    gl.vertexAttribPointer(WebGLMacros.AMC_ATTRIBUTE_COLOR, 3, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(WebGLMacros.AMC_ATTRIBUTE_COLOR);
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    gl.bindVertexArray(null);
+    //setup sphere data
+    sphere = new Mesh();
+    makeSphere(sphere, 2.0, 30, 30);
 
     gl.clearDepth(1.0);
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
 
-    gl.hint(gl.PERSPECTIVE_CORRECTION_HINT, gl.NICEST);
-
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     perspectiveProjectionMatrix = mat4.create();
+
+    lightAmbient = new Float32Array([0.0, 0.0, 0.0]);
+    lightDiffuse = new Float32Array([1.0, 1.0, 1.0]);
+    lightSpecular = new Float32Array([1.0, 1.0, 1.0]);
+    lightPosition = new Float32Array([100.0, 100.0, 100.0, 1.0])
+    materialAmbient = new Float32Array([0.0, 0.0, 0.0]);
+    materialDiffuse = new Float32Array([1.0, 1.0, 1.0]);
+    materialSpecular = new Float32Array([1.0, 1.0, 1.0]);
+    materialShininess = 128.0;
+    LKeyPressed = 0;
 }
 
 function resize() {
@@ -277,48 +315,41 @@ function resize() {
 
 function render() {
     //variable declarations
-    var modelViewMatrix = mat4.create();
-    var modelViewProjectionMatrix = mat4.create();
+    var modelMatrix = mat4.create();
+    var viewMaterix = mat4.create();
 
     //code
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     gl.useProgram(shaderProgramObject);
-    mat4.translate(modelViewMatrix, modelViewMatrix, [0.0, 0.0, -4.0]);
-    mat4.rotateY(modelViewMatrix, modelViewMatrix, degreeToRad(pyramid_rotation_angle));
-    mat4.multiply(modelViewProjectionMatrix, perspectiveProjectionMatrix, modelViewMatrix);
-    gl.uniformMatrix4fv(mvpUniform, false, modelViewProjectionMatrix);
+    mat4.translate(modelMatrix, modelMatrix, [0.0, 0.0, -5.0]);
 
-    gl.bindVertexArray(vao_pyramid);
-    gl.drawArrays(gl.TRIANGLES, 0, 12);
-    gl.bindVertexArray(null);
+    gl.uniformMatrix4fv(modelMatrixUniform, false, modelMatrix);
+    gl.uniformMatrix4fv(viewMatrixUniform, false, viewMaterix);
+    gl.uniformMatrix4fv(perspectiveProjectionMatrixUniform, false, perspectiveProjectionMatrix);
 
-    gl.bindVertexArray(null);
+    gl.uniform3fv(LaUniform, lightAmbient);
+    gl.uniform3fv(LdUniform, lightDiffuse);
+    gl.uniform3fv(LsUniform, lightSpecular);
+    gl.uniform4fv(lightPositionUniform, lightPosition);
+
+    gl.uniform3fv(KaUniform, materialAmbient);
+    gl.uniform3fv(KdUniform, materialDiffuse);
+    gl.uniform3fv(KsUniform, materialSpecular);
+    gl.uniform1f(materialShininessUniform, materialShininess);
+
+    gl.uniform1i(LKeyPressedUniform, LKeyPressed);
+
+    sphere.draw();
     gl.useProgram(null);
-
-    //update
-    pyramid_rotation_angle += 1.0;
-    if (pyramid_rotation_angle >= 360.0)
-        pyramid_rotation_angle = 0.0;
 
     //animation loop
     requestAnimationFrame(render, canvas);
 }
 
 function uninitialize() {
-    if (vao_pyramid) {
-        gl.deleteVertexArray(vao_pyramid);
-        vao_pyramid = null;
-    }
-
-    if (vbo_pyramid_position) {
-        gl.deleteBuffer(vbo_pyramid_position);
-        vbo_pyramid_position = null;
-    }
-
-    if (vbo_pyramid_color) {
-        gl.deleteBuffer(vbo_pyramid_color);
-        vbo_pyramid_color = null;
+    if (sphere) {
+        sphere.deallocate();
     }
 
     if (shaderProgramObject) {
@@ -339,10 +370,6 @@ function uninitialize() {
     }
 }
 
-function degreeToRad(angle) {
-    return (angle * 3.141592 / 180.0);
-}
-
 function keyDown(event) {
     //code
     switch (event.keyCode) {
@@ -355,6 +382,15 @@ function keyDown(event) {
         //'F' or 'f'
         case 70:
             toggleFullscreen();
+            break;
+
+        case 76:
+            if (LKeyPressed == 0) {
+                LKeyPressed = 1;
+            }
+            else {
+                LKeyPressed = 0;
+            }
             break;
     }
 }

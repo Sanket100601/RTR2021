@@ -1,2 +1,5 @@
 Log File Is Susccessfully Created
+Graphic Card Name : NVIDIA GeForce RTX 2060
+Graphic Card VRam in bytes : 6257901568 bytes
+Graphic Card VRam in GB : 6
 Initialize() Suceeded

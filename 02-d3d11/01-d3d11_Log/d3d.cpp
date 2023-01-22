@@ -295,7 +295,7 @@ HRESULT PrintD3dInfo(void)
 		fprintf(gpFile, "Error : CreateDXGIFactory() failed.\n");
 	}
 
-	if (pIDXGIFactory->EnumAdapters(1, &pIDXGIAdapter) == DXGI_ERROR_NOT_FOUND)
+	if (pIDXGIFactory->EnumAdapters(0, &pIDXGIAdapter) == DXGI_ERROR_NOT_FOUND)
 	{
 		fprintf(gpFile, "Error : DXGIAdapter cannot be found.\n");
 	}
@@ -309,6 +309,7 @@ HRESULT PrintD3dInfo(void)
 	}
 
 	WideCharToMultiByte(CP_ACP, 0, dxgiAdapterDesc.Description, 255, str, 255, NULL, NULL);
+	fopen_s(&gpFile, "Log.txt", "a+");
 	fprintf(gpFile,"Graphic Card Name : %s\n", str);
 	fprintf(gpFile,"Graphic Card VRam in bytes : %I64d bytes\n", (__int64)dxgiAdapterDesc.DedicatedVideoMemory);
 	fprintf(gpFile,"Graphic Card VRam in GB : %d\n", (int)ceil(dxgiAdapterDesc.DedicatedVideoMemory / 1024.0 / 1024.0 / 1024.0));

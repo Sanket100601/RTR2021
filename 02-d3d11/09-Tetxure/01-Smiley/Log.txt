@@ -1,0 +1,15 @@
+Log File Successfully Created
+D3D11 Obtained Hardware Driver !!!
+D3D11 Obtained 11.0 Feature Level !!!
+D3DCompile Successed for Vertex Shader !!!
+Init() in gpID3D11Device::CreateVertexShader() Vertex Shader Successed!!!
+D3DCompile Successed for Pixel Shader !!!
+Init() in gpID3D11Device::CreateVertexShader() Pixel Shader Successed!!!
+Init() in gpID3D11Device::CreateInputLayout() Successed!!!
+Init() in gpID3D11Device::CreateBuffer() for Position Buffer  Successed!!!
+Init() in gpID3D11Device::CreateBuffer() for sqaure Texoords Buffer  Successed!!!
+Init() in gpID3D11Device::CreateBuffer() for Constant Buffer Successed!!!
+Init() in loadD3DTexture function  Successed!!!
+Init() in gpID3D11Device::CreateSamplerState() Successed!!!
+Init() in resize() Sucessful!!!
+Init() Sucessfully !!!

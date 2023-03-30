@@ -47,8 +47,8 @@ FILE* gpFile = NULL;
 DWORD dwStyle;
 WINDOWPLACEMENT wpPrev = { sizeof(WINDOWPLACEMENT) };
 
-const int meshWidth = 256;
-const int meshHeight = 256  ;
+const int meshWidth = 512;
+const int meshHeight = 512;
 
 #define MY_ARRAY_SIZE (meshWidth * meshHeight * 4)
 float pos[meshWidth][meshHeight][4];
@@ -68,7 +68,7 @@ float animationTime = 0.0f;
 
 struct cudaGraphicsResource* graphicsResource = NULL;
 cudaError_t error;
-bool bOnGPU = false;
+bool bOnGPU = true;
 
 // WinMain()
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -443,7 +443,7 @@ void initialize(void) {
         "out vec4 FragColor;"
         "void main(void)"
         "{"
-        "FragColor = vec4(1.0f,1.0f,0.0f,0.3f);"
+        "FragColor = vec4(0.0f,0.5f,1.0f,0.2f);"
         "}";
 
     glShaderSource(gFragmentShaderObject, 1,
@@ -630,7 +630,7 @@ void display(void) {
     modelViewProjectionMatrix = mat4::identity();
 
     // transformations
-    translateMatrix = translate(0.0f, -3.0f, -20.0f);
+    translateMatrix = translate(.0f, -3.0f, -20.0f);
     scaleMatrix = scale(12.0f, 1.0f, 8.0f);
     modelViewMatrix = translateMatrix * scaleMatrix;    
 
@@ -679,8 +679,8 @@ void display(void) {
     }
     else {
 
-       //launchCPUKernel(animationTime);
-        gerstnerWave(animationTime);
+       launchCPUKernel(animationTime);
+        //gerstnerWave(animationTime);
 
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, MY_ARRAY_SIZE * sizeof(float), pos,
@@ -707,7 +707,7 @@ void display(void) {
     glUseProgram(0);
 
     SwapBuffers(ghdc);
-    animationTime += 0.1f;
+    animationTime += 0.02f;
 }
 
 void update(void) {
@@ -788,7 +788,7 @@ void uninitialize(void) {
     }
 }
 
-#if 0
+#if 1
 void launchCPUKernel(float time) {
     for (int i = 0; i < meshWidth; i++) {
         for (int j = 0; j < meshHeight; j++) {
@@ -799,9 +799,51 @@ void launchCPUKernel(float time) {
                 u = (u * 2.0) - 1.0;
                 v = (v * 2.0) - 1.0;
 
-                float freq = 10.0f;
-                float w = sinf(freq * u + time) * cosf(freq * v + time) * 0.02f;
+                float t = 0.01 * (-time * 130.0);
+                float freq = 6.0f;
+                float amp = 1.0f;
 
+                float w =(sinf(freq * (u*v) + t)) * 0.1  /** sinf(freq * v + t)*/;
+                w +=(sinf((freq * 2.1 * (u * v)) + t)) * 0.492f;
+                w +=(sinf((freq * 1.72 * (u * v)) + (t*1.121)))* 0.4f;
+                w +=(sinf((freq * 2.221 * (u * v)) + (t * 0.437))) * 0.5f;
+                w +=(sinf((freq * 3.1122 * (u * v)) + (t * 4.269)))* 0.25f;
+                w *= amp * 0.2;
+
+
+
+
+                if (k == 0)
+                    pos[i][j][k] = u;
+                if (k == 1)
+                    pos[i][j][k] = w;
+                if (k == 2)
+                    pos[i][j][k] = v;
+                if (k == 3)
+                    pos[i][j][k] = 1.0f;
+            }
+        }
+    }
+}
+#else
+void gerstnerWave(float time)
+{
+    for (int i = 0; i < meshWidth; i++)
+    {
+        for (int j = 0; j < meshHeight; j++)
+        {
+            for (int k = 0; k < 4; k++)
+            {
+                float u = i / (float)meshWidth;
+                float v = j / (float)meshHeight;
+
+                u = (u * 2.0) - 1.0f;
+                v = (v * 2.0) - 1.0f;
+
+                float freq = 10.0f;
+                float w = 1 - abs(sinf(freq * v + time)) * abs(cosf(freq * u + time) * 0.1f);
+
+                //float w = sinf(freq * u + time) * cosf(freq * v + time) * 0.2f;
                 if (k == 0)
                     pos[i][j][k] = u;
                 if (k == 1)
@@ -816,34 +858,5 @@ void launchCPUKernel(float time) {
 }
 #endif
 
-void gerstnerWave(float time)
-{
-    for (int i = 0; i < meshWidth; i++)
-    {
-        for (int j = 0; j < meshHeight; j++)
-        {
-            for (int k = 0; k < 4; k++)
-            {
-                float u = i / (float)meshWidth;
-                float v = j / (float)meshHeight;
 
-                u = (u * 2.0)-1.0f;
-                v = (v * 2.0)-1.0f;
-
-                float freq = 10.0f;
-                float w = 1 - abs(sinf(freq * v + time)) * abs(cosf(freq * u + time) * 0.1f);
-               
-                //float w = sinf(freq * u + time) * cosf(freq * v + time) * 0.2f;
-                if (k == 0)
-                    pos[i][j][k] = u;
-                if (k == 1)
-                    pos[i][j][k] = w;
-                if (k == 2)
-                    pos[i][j][k] = v;
-                if (k == 3)
-                    pos[i][j][k] = 1.0f;
-            }
-        }
-    }
-}
 

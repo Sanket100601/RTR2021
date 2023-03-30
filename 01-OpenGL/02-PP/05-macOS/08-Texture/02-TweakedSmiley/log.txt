@@ -1,0 +1,8 @@
+program is started Successfully
+Renderer : Intel Iris Pro OpenGL Engine
+Version : 4.1 INTEL-18.8.5
+GLSL Version : 4.10
+Log File Is Sucessfully 1 !!!
+Log File Is Sucessfully 2 !!!
+Log File Is Sucessfully 3 !!!
+program is Terminate Successfully

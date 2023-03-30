@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>B1B234C2-2426-4562-BC78-9FCCBD66570B</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>B1B234C2-2426-4562-BC78-9FCCBD66570B.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>window project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>window</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build window</string>
+			<key>timeStartedRecording</key>
+			<real>701871529.35698497</real>
+			<key>timeStoppedRecording</key>
+			<real>701871529.48194897</real>
+			<key>title</key>
+			<string>Build window</string>
+			<key>uniqueIdentifier</key>
+			<string>B1B234C2-2426-4562-BC78-9FCCBD66570B</string>
+		</dict>
+		<key>F8399B29-AD66-4A8C-8887-088197D39AF8</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>F8399B29-AD66-4A8C-8887-088197D39AF8.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>window project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>window</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build window</string>
+			<key>timeStartedRecording</key>
+			<real>701871442.55411601</real>
+			<key>timeStoppedRecording</key>
+			<real>701871447.25534105</real>
+			<key>title</key>
+			<string>Build window</string>
+			<key>uniqueIdentifier</key>
+			<string>F8399B29-AD66-4A8C-8887-088197D39AF8</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>5A58EA1C-5F51-428D-95D5-D77272D684F8</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>F8399B29-AD66-4A8C-8887-088197D39AF8</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-window-2023.03.30_17-47-22-+0530.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>window project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>window</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run window</string>
+			<key>timeStartedRecording</key>
+			<real>701871442.553828</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run window</string>
+			<key>uniqueIdentifier</key>
+			<string>5A58EA1C-5F51-428D-95D5-D77272D684F8</string>
+		</dict>
+		<key>E9D33D54-E8ED-4BD3-B8DB-2CCE2C9807C7</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>B1B234C2-2426-4562-BC78-9FCCBD66570B</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-window-2023.03.30_17-48-49-+0530.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>window project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>window</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run window</string>
+			<key>timeStartedRecording</key>
+			<real>701871529.35668695</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run window</string>
+			<key>uniqueIdentifier</key>
+			<string>E9D33D54-E8ED-4BD3-B8DB-2CCE2C9807C7</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

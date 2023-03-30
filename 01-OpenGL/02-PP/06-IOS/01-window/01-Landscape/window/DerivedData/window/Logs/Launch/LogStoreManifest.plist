@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>2FFABC18-BF17-4BCD-81E5-7515DF23E0F1</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>AA290D4D-85EA-4D17-9679-599054F44CE7</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-window-2023.03.30_17-35-52-+0530.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>window project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>window</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run window</string>
+			<key>timeStartedRecording</key>
+			<real>701870752.336483</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run window</string>
+			<key>uniqueIdentifier</key>
+			<string>2FFABC18-BF17-4BCD-81E5-7515DF23E0F1</string>
+		</dict>
+		<key>646B6F00-F900-4782-BBEE-8673E3F4ACA5</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>50CCD919-E27E-4692-BFD4-F54516610CB3</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-window-2023.03.30_17-34-34-+0530.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>window project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>window</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run window</string>
+			<key>timeStartedRecording</key>
+			<real>701870674.488132</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run window</string>
+			<key>uniqueIdentifier</key>
+			<string>646B6F00-F900-4782-BBEE-8673E3F4ACA5</string>
+		</dict>
+		<key>F1358E13-AB14-4E47-B5AD-823DFD7744D7</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>A2D27058-F02B-40D4-8488-6CCD6B7C53FB</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-window-2023.03.30_17-33-01-+0530.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>window project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>window</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run window</string>
+			<key>timeStartedRecording</key>
+			<real>701870581.75590003</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run window</string>
+			<key>uniqueIdentifier</key>
+			<string>F1358E13-AB14-4E47-B5AD-823DFD7744D7</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

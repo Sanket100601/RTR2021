@@ -1,0 +1,58 @@
+{
+  "_buildCommand2" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : true,
+    "targets" : null
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "2d9336e3dd9089d9835ceb0bd05accb44816b6c533f61fc467a22253711f485a"
+    }
+  ],
+  "containerPath" : "/Users/admin/Desktop/05-macOS/06-iOS/04-OpenGLES/10-Lights/01-DiffuseLights/01-Cube/window/window.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "indexbuild",
+    "activeArchitecture" : "x86_64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "iphonesimulator",
+      "sdk" : "iphonesimulator16.2",
+      "sdkVariant" : "iphonesimulator",
+      "supportedArchitectures" : [
+        "x86_64"
+      ],
+      "targetArchitecture" : "x86_64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/admin/Desktop/05-macOS/06-iOS/04-OpenGLES/10-Lights/01-DiffuseLights/01-Cube/window/DerivedData/window/Index.noindex/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/admin/Desktop/05-macOS/06-iOS/04-OpenGLES/10-Lights/01-DiffuseLights/01-Cube/window/DerivedData/window/Index.noindex/Build/Products",
+      "derivedDataPath" : "/Users/admin/Desktop/05-macOS/06-iOS/04-OpenGLES/10-Lights/01-DiffuseLights/01-Cube/window/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/admin/Desktop/05-macOS/06-iOS/04-OpenGLES/10-Lights/01-DiffuseLights/01-Cube/window/DerivedData/window/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/admin/Desktop/05-macOS/06-iOS/04-OpenGLES/10-Lights/01-DiffuseLights/01-Cube/window/DerivedData/window/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/admin/Desktop/05-macOS/06-iOS/04-OpenGLES/10-Lights/01-DiffuseLights/01-Cube/window/DerivedData/window/Index.noindex/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO",
+          "INDEX_ARENA_INFO_REGULAR_BUILD_PRODUCTS_DIR" : "/Users/admin/Desktop/05-macOS/06-iOS/04-OpenGLES/10-Lights/01-DiffuseLights/01-Cube/window/DerivedData/window/Build/Products",
+          "ONLY_ACTIVE_ARCH" : "YES"
+        }
+      }
+    }
+  },
+  "qos" : "default",
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

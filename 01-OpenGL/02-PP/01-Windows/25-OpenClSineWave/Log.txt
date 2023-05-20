@@ -1,0 +1,5 @@
+Log File Is Sucessfully Created !!!
+Init OpenCL
+GPU Device count is 1
+initialise function Sucessful
+Log File Is Sucessfully Closed !!!

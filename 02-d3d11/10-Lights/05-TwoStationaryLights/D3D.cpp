@@ -17,7 +17,6 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
-#pragma comment(lib, "Sphere.lib")
 
 //symbolic constants
 #define WIN_WIDTH  800             //initial width of window  
@@ -25,6 +24,23 @@
 
 #define VK_F       0x46            //virtual key code of F key
 #define VK_f       0x60            //virtual key code of f key
+
+//type declarations
+struct Light
+{
+    float ambient[4];
+    float diffuse[4];
+    float specular[4];
+    float position[4];
+};
+
+struct Material
+{
+    float ambient[4];
+    float diffuse[4];
+    float specular[4];
+    float shininess;
+};
 
 //callback procedure declaration
 LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
@@ -48,19 +64,13 @@ ID3D11RenderTargetView* gpID3D11RenderTargetView = NULL;
 ID3D11RasterizerState* gpID3D11RasterizerState = NULL;
 ID3D11DepthStencilView* gpID3D11DepthStencilView = NULL;
 
-ID3D11VertexShader* gpID3D11VertexShader_perVertexLighting = NULL;
-ID3D11PixelShader* gpID3D11PixelShader_perVertexLighting = NULL;
-ID3D11InputLayout* gpID3D11InputLayout_perVertexLighting = NULL;
-ID3D11Buffer* gpID3D11Buffer_ConstantBuffer_perVertexLighting = NULL;
+ID3D11VertexShader* gpID3D11VertexShader = NULL;
+ID3D11PixelShader* gpID3D11PixelShader = NULL;
+ID3D11InputLayout* gpID3D11InputLayout = NULL;
+ID3D11Buffer* gpID3D11Buffer_ConstantBuffer = NULL;
 
-ID3D11VertexShader* gpID3D11VertexShader_perPixelLighting = NULL;
-ID3D11PixelShader* gpID3D11PixelShader_perPixelLighting = NULL;
-ID3D11InputLayout* gpID3D11InputLayout_perPixelLighting = NULL;
-ID3D11Buffer* gpID3D11Buffer_ConstantBuffer_perPixelLighting = NULL;
-
-ID3D11Buffer* gpID3D11Buffer_VertexBuffer_sphere_position = NULL;
-ID3D11Buffer* gpID3D11Buffer_VertexBuffer_sphere_normal = NULL;
-ID3D11Buffer* gpID3D11Buffer_IndexBuffer = NULL;
+ID3D11Buffer* gpID3D11Buffer_VertexBuffer_position = NULL;
+ID3D11Buffer* gpID3D11Buffer_VertexBuffer_normal = NULL;
 
 struct CBUFFER
 {
@@ -68,37 +78,25 @@ struct CBUFFER
     XMMATRIX ViewMatrix;
     XMMATRIX ProjectionMatrix;
 
-    XMVECTOR La;
-    XMVECTOR Ld;
-    XMVECTOR Ls;
-    XMVECTOR LightPosition;
+    XMVECTOR La[2];
+    XMVECTOR Ld[2];
+    XMVECTOR Ls[2];
+    XMVECTOR LightPosition[2];
 
     XMVECTOR Ka;
     XMVECTOR Kd;
     XMVECTOR Ks;
     float MaterialShininess;
+
+    unsigned int KeyPressed;
 };
 
 XMMATRIX perspectiveProjectionMatrix;
+struct Light light[2];
+struct Material material;
 
-float LightAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-float LightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-float LightSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-float LightPosition[] = { 100.0f, 100.0f, -100.0f, 1.0f };
-
-float MaterialAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-float MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-float MaterialSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-float MaterialShininess = 128.0f;
-
-float sphere_vertices[1146];
-float sphere_normals[1146];
-float sphere_texcoords[764];
-unsigned short sphere_elements[2280];
-int gNumVertices;
-int gNumElements;
-
-bool gbShaderToggle;
+bool gbLight = false;
+bool bAnimate = false;
 
 //windows entry point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -160,19 +158,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
     init_y = (cyScreen / 2) - (WIN_HEIGHT / 2);
 
     //create window
-    hwnd = CreateWindowEx(WS_EX_APPWINDOW,                      //extended window style          
-        szAppName,                                          //class name
-        TEXT("Direct3D11"),   //window caption
-        WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN |             //window style
+    hwnd = CreateWindowEx(WS_EX_APPWINDOW,                //extended window style          
+        szAppName,                                    //class name
+        TEXT("Direct3D11 : Two Stationary Lights"),   //window caption
+        WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN |       //window style
         WS_CLIPSIBLINGS | WS_VISIBLE,
-        init_x,                                             //X-coordinate of top left corner of window 
-        init_y,                                             //Y-coordinate of top left corner of window
-        WIN_WIDTH,                                          //initial window width                 
-        WIN_HEIGHT,                                         //initial window height
-        (HWND)NULL,                                         //handle to a parent window  : NULL desktop
-        (HMENU)NULL,                                        //handle to a menu : NULL no menu
-        hInstance,                                          //handle to a program instance
-        (LPVOID)NULL);                                      //data to be sent to window callback : NULL no data to send      
+        init_x,                                       //X-coordinate of top left corner of window 
+        init_y,                                       //Y-coordinate of top left corner of window
+        WIN_WIDTH,                                    //initial window width                 
+        WIN_HEIGHT,                                   //initial window height
+        (HWND)NULL,                                   //handle to a parent window  : NULL desktop
+        (HMENU)NULL,                                  //handle to a menu : NULL no menu
+        hInstance,                                    //handle to a program instance
+        (LPVOID)NULL);                                //data to be sent to window callback : NULL no data to send      
 
     //store handle to a window in global handle
     ghwnd = hwnd;
@@ -281,14 +279,28 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
     case WM_CHAR:
         switch (wParam)
         {
-        case 'V':
-        case 'v':
-            gbShaderToggle = false;
+        case 'L':
+        case 'l':
+            if (gbLight == true)
+            {
+                gbLight = false;
+            }
+            else
+            {
+                gbLight = true;
+            }
             break;
 
-        case 'P':
-        case 'p':
-            gbShaderToggle = true;
+        case 'A':
+        case 'a':
+            if (bAnimate == true)
+            {
+                bAnimate = false;
+            }
+            else
+            {
+                bAnimate = true;
+            }
             break;
 
         default:
@@ -501,53 +513,53 @@ HRESULT Initialize(void)
         fclose(gpFile);
     }
 
-    //per vertex lighting shader program
-    fopen_s(&gpFile, gLogFileName, "a+");
-    fprintf(gpFile, "-> Per Vertex Lighting.\n");
-    fprintf(gpFile, "--------------------------------------------------------------------------\n");
-    fclose(gpFile);
+    //per pixel lighting shader program
 
     //vertex shader
-    const char* vertexShaderSourceCode_perVertexLighting =
+    const char* vertexShaderSourceCode =
         "cbuffer ConstantBuffer"                                                                                        \
         "{"                                                                                                             \
         "   float4x4 worldMatrix;"                                                                                      \
         "   float4x4 viewMatrix;"                                                                                       \
         "   float4x4 projectionMatrix;"                                                                                 \
 
-        "   float4 la;"                                                                                                 \
-        "   float4 ld;"                                                                                                 \
-        "   float4 ls;"                                                                                                 \
-        "   float4 lightPosition;"                                                                                      \
+        "   float4 la[2];"                                                                                              \
+        "   float4 ld[2];"                                                                                              \
+        "   float4 ls[2];"                                                                                              \
+        "   float4 lightPosition[2];"                                                                                   \
 
         "   float4 ka;"                                                                                                 \
         "   float4 kd;"                                                                                                 \
         "   float4 ks;"                                                                                                 \
         "   float materialShininess;"                                                                                   \
+
+        "   uint keyPressed;"                                                                                           \
         "}"                                                                                                             \
 
         "struct vertex_output"                                                                                          \
         "{"                                                                                                             \
-        "   float4 position:SV_POSITION;"                                                                               \
-        "   float3 phong_ads_light:COLOR;"                                                                              \
+        "   float4 position           : SV_POSITION;"                                                                               \
+        "   float3 transformed_normal : NORMAL0;"                                                                         \
+        "   float3 light_direction[2] : light_direction;"                                                                         \
+        "   float3 viewer_vector      : viewer_vector;"                                                                              \
         "};"                                                                                                            \
 
         "vertex_output main(float4 pos:POSITION, float4 normal:NORMAL)"                                                 \
         "{"                                                                                                             \
         "   vertex_output output;"                                                                                      \
-        "   float4 eye_position = mul(worldMatrix, pos);"                                                               \
-        "   eye_position = mul(viewMatrix, eye_position);"                                                              \
-        "   float3 transformed_normal = (float3)normalize(mul((float3x3)worldMatrix, (float3)normal));"                 \
-        "   float3 light_direction = (float3)normalize(lightPosition - eye_position);"                                  \
+        "   if(keyPressed == 1)"                                                                                        \
+        "   {"                                                                                                          \
+        "       float4 eye_position = mul(worldMatrix, pos);"                                                           \
+        "       eye_position = mul(viewMatrix, eye_position);"                                                          \
 
-        "   float3 ambient = la * ka;"                                                                                  \
-        "   float3 diffuse = ld * kd * max(dot(light_direction, transformed_normal), 0.0f);"                            \
+        "       for(int i = 0; i < 2; i++)"                                                                             \
+        "       {"                                                                                                      \
+        "           output.light_direction[i] = (float3)lightPosition[i] - eye_position.xyz;"                           \
+        "       }"                                                                                                      \
 
-        "   float3 reflection_vector = reflect(-light_direction, transformed_normal);"                                  \
-        "   float3 viewer_vector = normalize(-eye_position.xyz);"                                                       \
-        "   float3 specular = ls * ks * pow(max(dot(reflection_vector, viewer_vector), 0.0f), materialShininess);"      \
-
-        "   output.phong_ads_light = ambient + diffuse + specular;"                                                     \
+        "       output.transformed_normal = (float3)mul((float3x3)worldMatrix, (float3)normal);"                        \
+        "       output.viewer_vector = -eye_position.xyz;"                                                              \
+        "   }"                                                                                                          \
 
         "   float4 position = mul(worldMatrix, pos);"                                                                   \
         "   position = mul(viewMatrix, position);"                                                                      \
@@ -562,8 +574,8 @@ HRESULT Initialize(void)
 
     //compile vertex shader
     hr = D3DCompile(
-        vertexShaderSourceCode_perVertexLighting,
-        lstrlenA(vertexShaderSourceCode_perVertexLighting) + 1,
+        vertexShaderSourceCode,
+        lstrlenA(vertexShaderSourceCode) + 1,
         "VS",
         NULL,
         D3D_COMPILE_STANDARD_FILE_INCLUDE,
@@ -607,7 +619,7 @@ HRESULT Initialize(void)
         pID3DBlob_VertexShaderCode->GetBufferPointer(),
         pID3DBlob_VertexShaderCode->GetBufferSize(),
         NULL,
-        &gpID3D11VertexShader_perVertexLighting
+        &gpID3D11VertexShader
     );
     if (FAILED(hr))
     {
@@ -617,17 +629,65 @@ HRESULT Initialize(void)
         return (hr);
     }
 
-    //pixel shader 
-    const char* pixelShaderSourceCode_perVertexLighting =
-        "struct vertex_output"                                      \
-        "{"                                                         \
-        "   float4 position:SV_POSITION;"                           \
-        "   float3 phong_ads_light:COLOR;"                          \
-        "};"                                                        \
+    //set vertex shader into pipeline
+    gpID3D11DeviceContext->VSSetShader(gpID3D11VertexShader, NULL, 0);
 
-        "float4 main(vertex_output input) : SV_TARGET"              \
-        "{"                                                         \
-        "   return (float4(input.phong_ads_light, 1.0f));"          \
+    //pixel shader 
+    const char* pixelShaderSourceCode =
+        "cbuffer ConstantBuffer"                                                                                                            \
+        "{"                                                                                                                                 \
+        "   float4x4 worldMatrix;"                                                                                                          \
+        "   float4x4 viewMatrix;"                                                                                                           \
+        "   float4x4 projectionMatrix;"                                                                                                     \
+
+        "   float4 la[2];"                                                                                                                  \
+        "   float4 ld[2];"                                                                                                                  \
+        "   float4 ls[2];"                                                                                                                  \
+        "   float4 lightPosition[2];"                                                                                                       \
+
+        "   float4 ka;"                                                                                                                     \
+        "   float4 kd;"                                                                                                                     \
+        "   float4 ks;"                                                                                                                     \
+        "   float materialShininess;"                                                                                                       \
+
+        "   uint keyPressed;"                                                                                                               \
+        "}"                                                                                                                                 \
+
+        "struct vertex_output"                                                                                                              \
+        "{"                                                                                                                                 \
+        "   float4 position           : SV_POSITION;"                                                                                                   \
+        "   float3 transformed_normal : NORMAL0;"                                                                                             \
+        "   float3 light_direction[2] : light_direction;"                                                                                             \
+        "   float3 viewer_vector      : viewer_vector;"                                                                                                  \
+        "};"                                                                                                                                \
+
+        "float4 main(vertex_output input) : SV_TARGET"                                                                                      \
+        "{"                                                                                                                                 \
+        "   float3 phong_ads_light = float3(0.0f, 0.0f, 0.0f);"                                                                             \
+        "   if(keyPressed == 1)"                                                                                                            \
+        "   {"                                                                                                                              \
+        "       float3 normalized_transformed_normal = normalize(input.transformed_normal);"                                                \
+        "       float3 normalized_viewer_vector = normalize(input.viewer_vector);"                                                          \
+
+        "       for(int i = 0; i < 2; i++)"                                                                                                 \
+        "       {"                                                                                                                          \
+        "           float3 normalized_light_direction = normalize(input.light_direction[i]);"                                               \
+        "           float3 reflection_vector = reflect(-normalized_light_direction, normalized_transformed_normal);"                        \
+
+        "           float3 ambient = la[i] * ka;"                                                                                           \
+        "           float3 diffuse = ld[i] * kd * max(dot(normalized_light_direction, normalized_transformed_normal), 0.0f);"               \
+        "           float3 specular = ls[i] * ks * pow(max(dot(reflection_vector, normalized_viewer_vector), 0.0f), materialShininess);"    \
+
+        "           phong_ads_light = phong_ads_light + ambient + diffuse + specular;"                                                      \
+        "       }"
+        "   }"                                                                                                                              \
+        "   else"                                                                                                                           \
+        "   {"                                                                                                                              \
+        "       phong_ads_light = float3(1.0f, 1.0f, 1.0f);"                                                                                \
+        "   }"                                                                                                                              \
+
+        "   float4 color = float4(phong_ads_light, 1.0f);"                                                                                  \
+        "   return (color);"                                                                                                                \
         "}";
 
     //buffers for object code and error 
@@ -635,8 +695,8 @@ HRESULT Initialize(void)
     pID3DBlob_Error = NULL;
 
     hr = D3DCompile(
-        pixelShaderSourceCode_perVertexLighting,
-        lstrlenA(pixelShaderSourceCode_perVertexLighting) + 1,
+        pixelShaderSourceCode,
+        lstrlenA(pixelShaderSourceCode) + 1,
         "PS",
         NULL,
         D3D_COMPILE_STANDARD_FILE_INCLUDE,
@@ -670,7 +730,6 @@ HRESULT Initialize(void)
     {
         fopen_s(&gpFile, gLogFileName, "a+");
         fprintf(gpFile, "-> pixel shader compiled successfully.\n");
-        fprintf(gpFile, "--------------------------------------------------------------------------\n");
         fclose(gpFile);
     }
 
@@ -679,7 +738,7 @@ HRESULT Initialize(void)
         pID3DBlob_PixelShaderCode->GetBufferPointer(),
         pID3DBlob_PixelShaderCode->GetBufferSize(),
         NULL,
-        &gpID3D11PixelShader_perVertexLighting
+        &gpID3D11PixelShader
     );
     if (FAILED(hr))
     {
@@ -688,6 +747,9 @@ HRESULT Initialize(void)
         fclose(gpFile);
         return (hr);
     }
+
+    //set pixel shader into pipeline
+    gpID3D11DeviceContext->PSSetShader(gpID3D11PixelShader, NULL, 0);
 
     //release pixel shader buffer
     pID3DBlob_PixelShaderCode->Release();
@@ -717,7 +779,7 @@ HRESULT Initialize(void)
         _ARRAYSIZE(d3d11InputElementDesc),
         pID3DBlob_VertexShaderCode->GetBufferPointer(),
         pID3DBlob_VertexShaderCode->GetBufferSize(),
-        &gpID3D11InputLayout_perVertexLighting
+        &gpID3D11InputLayout
     );
     if (FAILED(hr))
     {
@@ -728,6 +790,9 @@ HRESULT Initialize(void)
         pID3DBlob_VertexShaderCode = NULL;
         return (hr);
     }
+
+    //set Input Layout in pipeline
+    gpID3D11DeviceContext->IASetInputLayout(gpID3D11InputLayout);
 
     //release vertex shader buffer
     pID3DBlob_VertexShaderCode->Release();
@@ -739,7 +804,7 @@ HRESULT Initialize(void)
     d3d11BufferDesc.ByteWidth = sizeof(CBUFFER);
     d3d11BufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     d3d11BufferDesc.Usage = D3D11_USAGE_DEFAULT;
-    hr = gpID3D11Device->CreateBuffer(&d3d11BufferDesc, NULL, &gpID3D11Buffer_ConstantBuffer_perVertexLighting);
+    hr = gpID3D11Device->CreateBuffer(&d3d11BufferDesc, NULL, &gpID3D11Buffer_ConstantBuffer);
     if (FAILED(hr))
     {
         fopen_s(&gpFile, gLogFileName, "a+");
@@ -748,347 +813,99 @@ HRESULT Initialize(void)
         return (hr);
     }
 
-    //per pixel lighting shader program
-    fopen_s(&gpFile, gLogFileName, "a+");
-    fprintf(gpFile, "-> Per Pixel Lighting.\n");
-    fprintf(gpFile, "--------------------------------------------------------------------------\n");
-    fclose(gpFile);
+    //set constant buffer into pipeline
+    gpID3D11DeviceContext->VSSetConstantBuffers(0, 1, &gpID3D11Buffer_ConstantBuffer);
+    gpID3D11DeviceContext->PSSetConstantBuffers(0, 1, &gpID3D11Buffer_ConstantBuffer);
 
-    //vertex shader
-    const char* vertexShaderSourceCode_perPixelLighting =
-        "cbuffer ConstantBuffer"                                                                                        \
-        "{"                                                                                                             \
-        "   float4x4 worldMatrix;"                                                                                      \
-        "   float4x4 viewMatrix;"                                                                                       \
-        "   float4x4 projectionMatrix;"                                                                                 \
-
-        "   float4 la;"                                                                                                 \
-        "   float4 ld;"                                                                                                 \
-        "   float4 ls;"                                                                                                 \
-        "   float4 lightPosition;"                                                                                      \
-
-        "   float4 ka;"                                                                                                 \
-        "   float4 kd;"                                                                                                 \
-        "   float4 ks;"                                                                                                 \
-        "   float materialShininess;"                                                                                   \
-        "}"                                                                                                             \
-
-        "struct vertex_output"                                                                                          \
-        "{"                                                                                                             \
-        "   float4 position:SV_POSITION;"                                                                               \
-        "   float3 transformed_normal:NORMAL0;"                                                                         \
-        "   float3 light_direction:NORMAL1;"                                                                            \
-        "   float3 viewer_vector:NORMAL2;"                                                                              \
-        "};"                                                                                                            \
-
-        "vertex_output main(float4 pos:POSITION, float4 normal:NORMAL)"                                                 \
-        "{"                                                                                                             \
-        "   vertex_output output;"                                                                                      \
-        "   float4 eye_position = mul(worldMatrix, pos);"                                                               \
-        "   eye_position = mul(viewMatrix, eye_position);"                                                              \
-
-        "   output.transformed_normal = (float3)mul((float3x3)worldMatrix, (float3)normal);"                            \
-        "   output.light_direction = (float3)lightPosition - eye_position.xyz;"                                         \
-        "   output.viewer_vector = -eye_position.xyz;"                                                                  \
-
-        "   float4 position = mul(worldMatrix, pos);"                                                                   \
-        "   position = mul(viewMatrix, position);"                                                                      \
-        "   position = mul(projectionMatrix, position);"                                                                \
-        "   output.position = position;"                                                                                \
-        "   return (output);"                                                                                           \
-        "}";
-
-    //buffers for object code and error 
-    pID3DBlob_VertexShaderCode = NULL;
-    pID3DBlob_Error = NULL;
-
-    //compile vertex shader
-    hr = D3DCompile(
-        vertexShaderSourceCode_perPixelLighting,
-        lstrlenA(vertexShaderSourceCode_perPixelLighting) + 1,
-        "VS",
-        NULL,
-        D3D_COMPILE_STANDARD_FILE_INCLUDE,
-        "main",
-        "vs_5_0",
-        0,
-        0,
-        &pID3DBlob_VertexShaderCode,
-        &pID3DBlob_Error
-    );
-    if (FAILED(hr))
+    //setup vertices, normals and texcoords
+    const float pyramid_vertices[] =
     {
-        if (pID3DBlob_Error != NULL)
-        {
-            fopen_s(&gpFile, gLogFileName, "a+");
-            fprintf(gpFile, "Error : vertex shader compilation failed : %s.", (char*)pID3DBlob_Error->GetBufferPointer());
-            fprintf(gpFile, "--------------------------------------------------------------------------\n");
-            fclose(gpFile);
-            pID3DBlob_Error->Release();
-            pID3DBlob_Error = NULL;
-            return (hr);
-        }
-        else
-        {
-            fopen_s(&gpFile, gLogFileName, "a+");
-            fprintf(gpFile, "Error : D3DCompile() failed (COM error).\n");
-            fclose(gpFile);
-            return (hr);
-        }
-    }
-    else
+        //front
+        +0.0f, +1.0f, +0.0f,
+        +1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+
+        //right
+        +0.0f, +1.0f, +0.0f,
+        +1.0f, -1.0f, +1.0f,
+        +1.0f, -1.0f, -1.0f,
+
+        //back
+        +0.0f, +1.0f, +0.0f,
+        -1.0f, -1.0f, +1.0f,
+        +1.0f, -1.0f, +1.0f,
+
+        //left
+        +0.0f, +1.0f, +0.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f, +1.0f,
+    };
+
+    const float pyramid_normals[] =
     {
-        fopen_s(&gpFile, gLogFileName, "a+");
-        fprintf(gpFile, "-> vertex shader compiled successfully.\n");
-        fprintf(gpFile, "--------------------------------------------------------------------------\n");
-        fclose(gpFile);
-    }
+        //front
+        +0.0f, +0.447214f, -0.894427f,
+        +0.0f, +0.447214f, -0.894427f,
+        +0.0f, +0.447214f, -0.894427f,
 
-    //create vertex shader object 
-    hr = gpID3D11Device->CreateVertexShader(
-        pID3DBlob_VertexShaderCode->GetBufferPointer(),
-        pID3DBlob_VertexShaderCode->GetBufferSize(),
-        NULL,
-        &gpID3D11VertexShader_perPixelLighting
-    );
-    if (FAILED(hr))
-    {
-        fopen_s(&gpFile, gLogFileName, "a+");
-        fprintf(gpFile, "Error : ID3D11Device::CreateVertexShader() failed.\n");
-        fclose(gpFile);
-        return (hr);
-    }
+        //right
+        +0.894427f, +0.447214f, +0.0f,
+        +0.894427f, +0.447214f, +0.0f,
+        +0.894427f, +0.447214f, +0.0f,
 
-    //pixel shader 
-    const char* pixelShaderSourceCode_perPixelLighting =
-        "cbuffer ConstantBuffer"                                                                                                    \
-        "{"                                                                                                                         \
-        "   float4x4 worldMatrix;"                                                                                                  \
-        "   float4x4 viewMatrix;"                                                                                                   \
-        "   float4x4 projectionMatrix;"                                                                                             \
+        //back
+        +0.0f, +0.447214f, +0.894427f,
+        +0.0f, +0.447214f, +0.894427f,
+        +0.0f, +0.447214f, +0.894427f,
 
-        "   float4 la;"                                                                                                             \
-        "   float4 ld;"                                                                                                             \
-        "   float4 ls;"                                                                                                             \
-        "   float4 lightPosition;"                                                                                                  \
+        //left
+        -0.894427f, +0.447214f, +0.0f,
+        -0.894427f, +0.447214f, +0.0f,
+        -0.894427f, +0.447214f, +0.0f,
+    };
 
-        "   float4 ka;"                                                                                                             \
-        "   float4 kd;"                                                                                                             \
-        "   float4 ks;"                                                                                                             \
-        "   float materialShininess;"                                                                                               \
-        "}"                                                                                                                         \
-
-        "struct vertex_output"                                                                                                      \
-        "{"                                                                                                                         \
-        "   float4 position:SV_POSITION;"                                                                                           \
-        "   float3 transformed_normal:NORMAL0;"                                                                                     \
-        "   float3 light_direction:NORMAL1;"                                                                                        \
-        "   float3 viewer_vector:NORMAL2;"                                                                                          \
-        "};"                                                                                                                        \
-
-        "float4 main(vertex_output input) : SV_TARGET"                                                                              \
-        "{"                                                                                                                         \
-        "   float3 phong_ads_light;"                                                                                                \
-
-        "   float3 normalized_transformed_normal = normalize(input.transformed_normal);"                                            \
-        "   float3 normalized_light_direction = normalize(input.light_direction);"                                                  \
-        "   float3 normalized_viewer_vector = normalize(input.viewer_vector);"                                                      \
-
-        "   float3 ambient = la * ka;"                                                                                              \
-        "   float3 diffuse = ld * kd * max(dot(normalized_light_direction, normalized_transformed_normal), 0.0f);"                  \
-
-        "   float3 reflection_vector = reflect(-normalized_light_direction, normalized_transformed_normal);"                        \
-        "   float3 specular = ls * ks * pow(max(dot(reflection_vector, normalized_viewer_vector), 0.0f), materialShininess);"       \
-        "   phong_ads_light = ambient + diffuse + specular;"                                                                        \
-
-        "   float4 color = float4(phong_ads_light, 1.0f);"                                                                          \
-        "   return (color);"                                                                                                        \
-        "}";
-
-    //buffers for object code and error 
-    pID3DBlob_PixelShaderCode = NULL;
-    pID3DBlob_Error = NULL;
-
-    hr = D3DCompile(
-        pixelShaderSourceCode_perPixelLighting,
-        lstrlenA(pixelShaderSourceCode_perPixelLighting) + 1,
-        "PS",
-        NULL,
-        D3D_COMPILE_STANDARD_FILE_INCLUDE,
-        "main",
-        "ps_5_0",
-        0,
-        0,
-        &pID3DBlob_PixelShaderCode,
-        &pID3DBlob_Error
-    );
-    if (FAILED(hr))
-    {
-        if (pID3DBlob_Error != NULL)
-        {
-            fopen_s(&gpFile, gLogFileName, "a+");
-            fprintf(gpFile, "Error : pixel shader compilation failed : %s", (char*)pID3DBlob_Error->GetBufferPointer());
-            fclose(gpFile);
-            pID3DBlob_Error->Release();
-            pID3DBlob_Error = NULL;
-            return (hr);
-        }
-        else
-        {
-            fopen_s(&gpFile, gLogFileName, "a+");
-            fprintf(gpFile, "Error : D3DCompile() failed (COM error).\n");
-            fclose(gpFile);
-            return (hr);
-        }
-    }
-    else
-    {
-        fopen_s(&gpFile, gLogFileName, "a+");
-        fprintf(gpFile, "-> pixel shader compiled successfully.\n");
-        fclose(gpFile);
-    }
-
-    //create pixel shader object
-    hr = gpID3D11Device->CreatePixelShader(
-        pID3DBlob_PixelShaderCode->GetBufferPointer(),
-        pID3DBlob_PixelShaderCode->GetBufferSize(),
-        NULL,
-        &gpID3D11PixelShader_perPixelLighting
-    );
-    if (FAILED(hr))
-    {
-        fopen_s(&gpFile, gLogFileName, "a+");
-        fprintf(gpFile, "Error : ID3D11Device::CreatePixelShader() failed.\n");
-        fclose(gpFile);
-        return (hr);
-    }
-
-    //release pixel shader buffer
-    pID3DBlob_PixelShaderCode->Release();
-    pID3DBlob_PixelShaderCode = NULL;
-
-    //initialize input layout 
-    ZeroMemory((void*)&d3d11InputElementDesc, 2 * sizeof(D3D11_INPUT_ELEMENT_DESC));
-
-    d3d11InputElementDesc[0].SemanticName = "POSITION";
-    d3d11InputElementDesc[0].SemanticIndex = 0;
-    d3d11InputElementDesc[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
-    d3d11InputElementDesc[0].AlignedByteOffset = 0;
-    d3d11InputElementDesc[0].InputSlot = 0;
-    d3d11InputElementDesc[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    d3d11InputElementDesc[0].InstanceDataStepRate = 0;
-
-    d3d11InputElementDesc[1].SemanticName = "NORMAL";
-    d3d11InputElementDesc[1].SemanticIndex = 0;
-    d3d11InputElementDesc[1].Format = DXGI_FORMAT_R32G32B32_FLOAT;
-    d3d11InputElementDesc[1].AlignedByteOffset = 0;
-    d3d11InputElementDesc[1].InputSlot = 1;
-    d3d11InputElementDesc[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    d3d11InputElementDesc[1].InstanceDataStepRate = 0;
-
-    hr = gpID3D11Device->CreateInputLayout(
-        d3d11InputElementDesc,
-        _ARRAYSIZE(d3d11InputElementDesc),
-        pID3DBlob_VertexShaderCode->GetBufferPointer(),
-        pID3DBlob_VertexShaderCode->GetBufferSize(),
-        &gpID3D11InputLayout_perPixelLighting
-    );
-    if (FAILED(hr))
-    {
-        fopen_s(&gpFile, gLogFileName, "a+");
-        fprintf(gpFile, "Error : ID3D11Device::CreateInputLayout() failed.\n");
-        fclose(gpFile);
-        pID3DBlob_VertexShaderCode->Release();
-        pID3DBlob_VertexShaderCode = NULL;
-        return (hr);
-    }
-
-    //release vertex shader buffer
-    pID3DBlob_VertexShaderCode->Release();
-    pID3DBlob_VertexShaderCode = NULL;
-
-    //create constant buffer 
+    //create vertex buffer for position
     ZeroMemory((void*)&d3d11BufferDesc, sizeof(D3D11_BUFFER_DESC));
-    d3d11BufferDesc.ByteWidth = sizeof(CBUFFER);
-    d3d11BufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-    d3d11BufferDesc.Usage = D3D11_USAGE_DEFAULT;
-    hr = gpID3D11Device->CreateBuffer(&d3d11BufferDesc, NULL, &gpID3D11Buffer_ConstantBuffer_perPixelLighting);
-    if (FAILED(hr))
-    {
-        fopen_s(&gpFile, gLogFileName, "a+");
-        fprintf(gpFile, "Error : ID3D11Device::CreateBuffer() failed for constant buffer.\n");
-        fclose(gpFile);
-        return (hr);
-    }
-
-    //setup sphere vertices, normals and texcoords
-    getSphereVertexData(sphere_vertices, sphere_normals, sphere_texcoords, sphere_elements);
-    gNumVertices = getNumberOfSphereVertices();
-    gNumElements = getNumberOfSphereElements();
-
-    //create vertex buffer for vertices of cube
-    ZeroMemory((void*)&d3d11BufferDesc, sizeof(D3D11_BUFFER_DESC));
-    d3d11BufferDesc.ByteWidth = gNumVertices * 3 * sizeof(float);
+    d3d11BufferDesc.ByteWidth = sizeof(float) * _ARRAYSIZE(pyramid_vertices);
     d3d11BufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
     d3d11BufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
     d3d11BufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 
-    hr = gpID3D11Device->CreateBuffer(&d3d11BufferDesc, NULL, &gpID3D11Buffer_VertexBuffer_sphere_position);
+    hr = gpID3D11Device->CreateBuffer(&d3d11BufferDesc, NULL, &gpID3D11Buffer_VertexBuffer_position);
     if (FAILED(hr))
     {
         fopen_s(&gpFile, gLogFileName, "a+");
-        fprintf(gpFile, "Error : ID3D11Device::CreateBuffer() failed for vertex buffer.\n");
+        fprintf(gpFile, "Error : ID3D11Device::CreateBuffer() failed for position buffer.\n");
         fclose(gpFile);
         return (hr);
     }
 
     D3D11_MAPPED_SUBRESOURCE d3d11MappedSubresource;
     ZeroMemory((void*)&d3d11MappedSubresource, sizeof(D3D11_MAPPED_SUBRESOURCE));
-    gpID3D11DeviceContext->Map(gpID3D11Buffer_VertexBuffer_sphere_position, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3d11MappedSubresource);
-    memcpy(d3d11MappedSubresource.pData, sphere_vertices, gNumVertices * 3 * sizeof(float));
-    gpID3D11DeviceContext->Unmap(gpID3D11Buffer_VertexBuffer_sphere_position, 0);
+    gpID3D11DeviceContext->Map(gpID3D11Buffer_VertexBuffer_position, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3d11MappedSubresource);
+    memcpy(d3d11MappedSubresource.pData, pyramid_vertices, sizeof(pyramid_vertices));
+    gpID3D11DeviceContext->Unmap(gpID3D11Buffer_VertexBuffer_position, 0);
 
-    //create vertex buffer for normals of cube
+    //create vertex buffer for normals
     ZeroMemory((void*)&d3d11BufferDesc, sizeof(D3D11_BUFFER_DESC));
-    d3d11BufferDesc.ByteWidth = gNumVertices * 3 * sizeof(float);
+    d3d11BufferDesc.ByteWidth = sizeof(float) * _ARRAYSIZE(pyramid_normals);
     d3d11BufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
     d3d11BufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
     d3d11BufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 
-    hr = gpID3D11Device->CreateBuffer(&d3d11BufferDesc, NULL, &gpID3D11Buffer_VertexBuffer_sphere_normal);
+    hr = gpID3D11Device->CreateBuffer(&d3d11BufferDesc, NULL, &gpID3D11Buffer_VertexBuffer_normal);
     if (FAILED(hr))
     {
         fopen_s(&gpFile, gLogFileName, "a+");
-        fprintf(gpFile, "Error : ID3D11Device::CreateBuffer() failed for vertex buffer.\n");
+        fprintf(gpFile, "Error : ID3D11Device::CreateBuffer() failed for color buffer.\n");
         fclose(gpFile);
         return (hr);
     }
 
     ZeroMemory((void*)&d3d11MappedSubresource, sizeof(D3D11_MAPPED_SUBRESOURCE));
-    gpID3D11DeviceContext->Map(gpID3D11Buffer_VertexBuffer_sphere_normal, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3d11MappedSubresource);
-    memcpy(d3d11MappedSubresource.pData, sphere_normals, gNumVertices * 3 * sizeof(float));
-    gpID3D11DeviceContext->Unmap(gpID3D11Buffer_VertexBuffer_sphere_normal, 0);
-
-    //create vertex buffer for indices of cube
-    ZeroMemory((void*)&d3d11BufferDesc, sizeof(D3D11_BUFFER_DESC));
-    d3d11BufferDesc.ByteWidth = gNumElements * sizeof(short);
-    d3d11BufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-    d3d11BufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-    d3d11BufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-
-    hr = gpID3D11Device->CreateBuffer(&d3d11BufferDesc, NULL, &gpID3D11Buffer_IndexBuffer);
-    if (FAILED(hr))
-    {
-        fopen_s(&gpFile, gLogFileName, "a+");
-        fprintf(gpFile, "Error : ID3D11Device::CreateBuffer() failed for index buffer.\n");
-        fclose(gpFile);
-        return (hr);
-    }
-
-    ZeroMemory((void*)&d3d11MappedSubresource, sizeof(D3D11_MAPPED_SUBRESOURCE));
-    gpID3D11DeviceContext->Map(gpID3D11Buffer_IndexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3d11MappedSubresource);
-    memcpy(d3d11MappedSubresource.pData, sphere_elements, gNumElements * sizeof(short));
-    gpID3D11DeviceContext->Unmap(gpID3D11Buffer_IndexBuffer, 0);
+    gpID3D11DeviceContext->Map(gpID3D11Buffer_VertexBuffer_normal, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3d11MappedSubresource);
+    memcpy(d3d11MappedSubresource.pData, pyramid_normals, sizeof(pyramid_normals));
+    gpID3D11DeviceContext->Unmap(gpID3D11Buffer_VertexBuffer_normal, 0);
 
     //create rasterizer state
     D3D11_RASTERIZER_DESC d3d11RasterizerDesc;
@@ -1124,6 +941,66 @@ HRESULT Initialize(void)
 
     //set projection matrix to identity
     perspectiveProjectionMatrix = XMMatrixIdentity();
+
+    //set up light 0 
+    light[0].ambient[0] = 0.0f;
+    light[0].ambient[1] = 0.0f;
+    light[0].ambient[2] = 0.0f;
+    light[0].ambient[3] = 1.0f;
+
+    light[0].diffuse[0] = 1.0f;
+    light[0].diffuse[1] = 0.0f;
+    light[0].diffuse[2] = 0.0f;
+    light[0].diffuse[3] = 1.0f;
+
+    light[0].specular[0] = 1.0f;
+    light[0].specular[1] = 0.0f;
+    light[0].specular[2] = 0.0f;
+    light[0].specular[3] = 1.0f;
+
+    light[0].position[0] = 5.0f;
+    light[0].position[1] = 0.0f;
+    light[0].position[2] = 0.0f;
+    light[0].position[3] = 1.0f;
+
+    //set up light 1
+    light[1].ambient[0] = 0.0f;
+    light[1].ambient[1] = 0.0f;
+    light[1].ambient[2] = 0.0f;
+    light[1].ambient[3] = 1.0f;
+
+    light[1].diffuse[0] = 0.0f;
+    light[1].diffuse[1] = 0.0f;
+    light[1].diffuse[2] = 1.0f;
+    light[1].diffuse[3] = 1.0f;
+
+    light[1].specular[0] = 0.0f;
+    light[1].specular[1] = 0.0f;
+    light[1].specular[2] = 1.0f;
+    light[1].specular[3] = 1.0f;
+
+    light[1].position[0] = -5.0f;
+    light[1].position[1] = 0.0f;
+    light[1].position[2] = 0.0f;
+    light[1].position[3] = 1.0f;
+
+    //set up material 
+    material.ambient[0] = 0.0f;
+    material.ambient[1] = 0.0f;
+    material.ambient[2] = 0.0f;
+    material.ambient[3] = 1.0f;
+
+    material.diffuse[0] = 1.0f;
+    material.diffuse[1] = 1.0f;
+    material.diffuse[2] = 1.0f;
+    material.diffuse[3] = 1.0f;
+
+    material.specular[0] = 1.0f;
+    material.specular[1] = 1.0f;
+    material.specular[2] = 1.0f;
+    material.specular[3] = 1.0f;
+
+    material.shininess = 50.0f;
 
     //warm-up call
     hr = Resize(WIN_WIDTH, WIN_HEIGHT);
@@ -1332,78 +1209,66 @@ HRESULT Resize(int width, int height)
 void Display(void)
 {
     //variable declarations
+    CBUFFER constantBuffer;
+    XMMATRIX worldMatrix;
+    XMMATRIX viewMatrix;
     UINT stride;
     UINT offset;
 
-    XMMATRIX worldMatrix;
-    XMMATRIX viewMatrix;
-
-    CBUFFER constantBuffer;
+    static float pyramid_rotation_angle = 0.0f;
 
     //code
-    //clear buffers
     gpID3D11DeviceContext->ClearRenderTargetView(gpID3D11RenderTargetView, gClearColor);
     gpID3D11DeviceContext->ClearDepthStencilView(gpID3D11DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-    //set up constant buffer data
     viewMatrix = XMMatrixIdentity();
-    worldMatrix = XMMatrixTranslation(0.0f, 0.0f, 1.5f);
+    worldMatrix = XMMatrixRotationY(-pyramid_rotation_angle);
+    worldMatrix = worldMatrix * XMMatrixTranslation(0.0f, 0.0f, 5.0f);
 
     ZeroMemory((void*)&constantBuffer, sizeof(CBUFFER));
     constantBuffer.WorldMatrix = worldMatrix;
     constantBuffer.ViewMatrix = viewMatrix;
     constantBuffer.ProjectionMatrix = perspectiveProjectionMatrix;
 
-    constantBuffer.La = XMVectorSet(LightAmbient[0], LightAmbient[1], LightAmbient[2], LightAmbient[3]);
-    constantBuffer.Ld = XMVectorSet(LightDiffuse[0], LightDiffuse[1], LightDiffuse[2], LightDiffuse[3]);
-    constantBuffer.Ls = XMVectorSet(LightSpecular[0], LightSpecular[1], LightSpecular[2], LightSpecular[3]);
-    constantBuffer.LightPosition = XMVectorSet(LightPosition[0], LightPosition[1], LightPosition[2], LightPosition[3]);
-
-    constantBuffer.Ka = XMVectorSet(MaterialAmbient[0], MaterialAmbient[1], MaterialAmbient[2], MaterialAmbient[3]);
-    constantBuffer.Kd = XMVectorSet(MaterialDiffuse[0], MaterialDiffuse[1], MaterialDiffuse[2], MaterialDiffuse[3]);
-    constantBuffer.Ks = XMVectorSet(MaterialSpecular[0], MaterialSpecular[1], MaterialSpecular[2], MaterialSpecular[3]);
-    constantBuffer.MaterialShininess = MaterialShininess;
-
-    if (gbShaderToggle == false)
+    if (gbLight == true)
     {
-        //set per vertex lighting shaders into pipeline
-        gpID3D11DeviceContext->VSSetShader(gpID3D11VertexShader_perVertexLighting, NULL, 0);
-        gpID3D11DeviceContext->PSSetShader(gpID3D11PixelShader_perVertexLighting, NULL, 0);
+        constantBuffer.KeyPressed = 1;
 
-        //set input layout in pipeline
-        gpID3D11DeviceContext->IASetInputLayout(gpID3D11InputLayout_perVertexLighting);
+        for (int i = 0; i < 2; i++)
+        {
+            constantBuffer.La[i] = XMVectorSet(light[i].ambient[0], light[i].ambient[1], light[i].ambient[2], light[i].ambient[3]);
+            constantBuffer.Ld[i] = XMVectorSet(light[i].diffuse[0], light[i].diffuse[1], light[i].diffuse[2], light[i].diffuse[3]);
+            constantBuffer.Ls[i] = XMVectorSet(light[i].specular[0], light[i].specular[1], light[i].specular[2], light[i].specular[3]);
+            constantBuffer.LightPosition[i] = XMVectorSet(light[i].position[0], light[i].position[1], light[i].position[2], light[i].position[3]);
+        }
 
-        //set constant buffer into pipeline
-        gpID3D11DeviceContext->VSSetConstantBuffers(0, 1, &gpID3D11Buffer_ConstantBuffer_perVertexLighting);
-
-        //update constant buffer
-        gpID3D11DeviceContext->UpdateSubresource(gpID3D11Buffer_ConstantBuffer_perVertexLighting, 0, NULL, &constantBuffer, 0, 0);
+        constantBuffer.Ka = XMVectorSet(material.ambient[0], material.ambient[1], material.ambient[2], material.ambient[3]);
+        constantBuffer.Kd = XMVectorSet(material.diffuse[0], material.diffuse[1], material.diffuse[2], material.diffuse[3]);
+        constantBuffer.Ks = XMVectorSet(material.specular[0], material.specular[1], material.specular[2], material.specular[3]);
+        constantBuffer.MaterialShininess = material.shininess;
     }
     else
     {
-        //set per pixel lighting shaders into pipeline
-        gpID3D11DeviceContext->VSSetShader(gpID3D11VertexShader_perPixelLighting, NULL, 0);
-        gpID3D11DeviceContext->PSSetShader(gpID3D11PixelShader_perPixelLighting, NULL, 0);
-
-        //set input layout in pipeline
-        gpID3D11DeviceContext->IASetInputLayout(gpID3D11InputLayout_perPixelLighting);
-
-        //set constant buffer into pipeline
-        gpID3D11DeviceContext->VSSetConstantBuffers(0, 1, &gpID3D11Buffer_ConstantBuffer_perPixelLighting);
-        gpID3D11DeviceContext->PSSetConstantBuffers(0, 1, &gpID3D11Buffer_ConstantBuffer_perPixelLighting);
-
-        //update constant buffer
-        gpID3D11DeviceContext->UpdateSubresource(gpID3D11Buffer_ConstantBuffer_perPixelLighting, 0, NULL, &constantBuffer, 0, 0);
+        constantBuffer.KeyPressed = 0;
     }
+
+    gpID3D11DeviceContext->UpdateSubresource(gpID3D11Buffer_ConstantBuffer, 0, NULL, &constantBuffer, 0, 0);
 
     stride = sizeof(float) * 3;
     offset = 0;
-    gpID3D11DeviceContext->IASetVertexBuffers(0, 1, &gpID3D11Buffer_VertexBuffer_sphere_position, &stride, &offset);
-    gpID3D11DeviceContext->IASetVertexBuffers(1, 1, &gpID3D11Buffer_VertexBuffer_sphere_normal, &stride, &offset);
-    gpID3D11DeviceContext->IASetIndexBuffer(gpID3D11Buffer_IndexBuffer, DXGI_FORMAT_R16_UINT, offset);
+    gpID3D11DeviceContext->IASetVertexBuffers(0, 1, &gpID3D11Buffer_VertexBuffer_position, &stride, &offset);
+    gpID3D11DeviceContext->IASetVertexBuffers(1, 1, &gpID3D11Buffer_VertexBuffer_normal, &stride, &offset);
 
     gpID3D11DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    gpID3D11DeviceContext->DrawIndexed(gNumElements, 0, 0);
+    gpID3D11DeviceContext->Draw(12, 0);
+
+    //update 
+    if (bAnimate)
+    {
+        pyramid_rotation_angle += 0.01f;
+        if (pyramid_rotation_angle >= 360.0f)
+            pyramid_rotation_angle = 0.0f;
+    }
 
     gpIDXGISwapChain->Present(0, 0);
 }
@@ -1424,70 +1289,40 @@ void Cleanup(void)
         gpID3D11RasterizerState = NULL;
     }
 
-    if (gpID3D11Buffer_IndexBuffer)
+    if (gpID3D11Buffer_ConstantBuffer)
     {
-        gpID3D11Buffer_IndexBuffer->Release();
-        gpID3D11Buffer_IndexBuffer = NULL;
+        gpID3D11Buffer_ConstantBuffer->Release();
+        gpID3D11Buffer_ConstantBuffer = NULL;
     }
 
-    if (gpID3D11Buffer_VertexBuffer_sphere_normal)
+    if (gpID3D11Buffer_VertexBuffer_normal)
     {
-        gpID3D11Buffer_VertexBuffer_sphere_normal->Release();
-        gpID3D11Buffer_VertexBuffer_sphere_normal = NULL;
+        gpID3D11Buffer_VertexBuffer_normal->Release();
+        gpID3D11Buffer_VertexBuffer_normal = NULL;
     }
 
-    if (gpID3D11Buffer_VertexBuffer_sphere_position)
+    if (gpID3D11Buffer_VertexBuffer_position)
     {
-        gpID3D11Buffer_VertexBuffer_sphere_position->Release();
-        gpID3D11Buffer_VertexBuffer_sphere_position = NULL;
+        gpID3D11Buffer_VertexBuffer_position->Release();
+        gpID3D11Buffer_VertexBuffer_position = NULL;
     }
 
-    if (gpID3D11Buffer_ConstantBuffer_perPixelLighting)
+    if (gpID3D11InputLayout)
     {
-        gpID3D11Buffer_ConstantBuffer_perPixelLighting->Release();
-        gpID3D11Buffer_ConstantBuffer_perPixelLighting = NULL;
+        gpID3D11InputLayout->Release();
+        gpID3D11InputLayout = NULL;
     }
 
-    if (gpID3D11InputLayout_perPixelLighting)
+    if (gpID3D11PixelShader)
     {
-        gpID3D11InputLayout_perPixelLighting->Release();
-        gpID3D11InputLayout_perPixelLighting = NULL;
+        gpID3D11PixelShader->Release();
+        gpID3D11PixelShader = NULL;
     }
 
-    if (gpID3D11PixelShader_perPixelLighting)
+    if (gpID3D11VertexShader)
     {
-        gpID3D11PixelShader_perPixelLighting->Release();
-        gpID3D11PixelShader_perPixelLighting = NULL;
-    }
-
-    if (gpID3D11VertexShader_perPixelLighting)
-    {
-        gpID3D11VertexShader_perPixelLighting->Release();
-        gpID3D11VertexShader_perPixelLighting = NULL;
-    }
-
-    if (gpID3D11Buffer_ConstantBuffer_perVertexLighting)
-    {
-        gpID3D11Buffer_ConstantBuffer_perVertexLighting->Release();
-        gpID3D11Buffer_ConstantBuffer_perVertexLighting = NULL;
-    }
-
-    if (gpID3D11InputLayout_perVertexLighting)
-    {
-        gpID3D11InputLayout_perVertexLighting->Release();
-        gpID3D11InputLayout_perVertexLighting = NULL;
-    }
-
-    if (gpID3D11PixelShader_perVertexLighting)
-    {
-        gpID3D11PixelShader_perVertexLighting->Release();
-        gpID3D11PixelShader_perVertexLighting = NULL;
-    }
-
-    if (gpID3D11VertexShader_perVertexLighting)
-    {
-        gpID3D11VertexShader_perVertexLighting->Release();
-        gpID3D11VertexShader_perVertexLighting = NULL;
+        gpID3D11VertexShader->Release();
+        gpID3D11VertexShader = NULL;
     }
 
     if (gpID3D11DepthStencilView)

@@ -720,7 +720,7 @@ function initialize_sphere() {
     gl.depthFunc(gl.LEQUAL);
 
     // clear the screen by color blue
-    gl.clearColor(0.0, 0.0, 0.0, 1.0); // by default float taken
+    gl.clearColor(1.0, 1.0, 1.0, 1.0); // by default float taken
 
     ambientSphere[0] = [0.0, 0.0, 0.0];
     diffuseSphere[0] = [1.0, 0.0, 0.0];
@@ -778,7 +778,7 @@ function display() {
         display_sphere(FBO_WIDTH, FBO_HEIGHT);
         update_sphere();
     }
-    gl.clearColor(1.0, 1.0, 1.0, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
     resize();
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -825,7 +825,7 @@ function display() {
 function display_sphere(textureWidth, textureHeight) {
     // code
     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(1.0, 1.0, 1.0, 1.0);
     resize_sphere(textureWidth, textureHeight);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
